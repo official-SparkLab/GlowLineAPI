@@ -98,4 +98,35 @@ class All_Products_Controller extends Controller
              return response()->json(["message" => "Record not found"], 404);
          }
      }
+
+
+     public function fetchProductForSale()
+     {
+         $products = DB::table('tbl_all_products')
+             ->where('type', 'Goods') // Corrected the SQL condition
+             ->orWhere('type', 'Retail') // Added an OR condition
+             ->get();
+     
+         if ($products->count() > 0) {
+             return response()->json(["data" => $products], 200);
+         } else {
+             return response()->json(["message" => "No data found"], 404);
+         }
+     }
+
+
+     public function fetchProductForPurchase()
+     {
+         $products = DB::table('tbl_all_products')
+             ->where('type', 'Raw') // Corrected the SQL condition
+             ->orWhere('type', 'Retail') // Added an OR condition
+             ->get();
+     
+         if ($products->count() > 0) {
+             return response()->json(["data" => $products], 200);
+         } else {
+             return response()->json(["message" => "No data found"], 404);
+         }
+     }
+     
 }

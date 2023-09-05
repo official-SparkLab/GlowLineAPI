@@ -164,6 +164,12 @@ Route::post('/addProduct',[All_Products_Controller::class,'addProduct']);
 
 Route::get('/fetchProducts',[All_Products_Controller::class,'fetchAllProducts']);
 
+Route::get('/fetchProductsForSale',[All_Products_Controller::class,'fetchProductForSale']);
+
+Route::get('/fetchProductsForPurchase',[All_Products_Controller::class,'fetchProductForPurchase']);
+
+
+
 Route::get('/fetchProduct/{p_id}',[All_Products_Controller::class,'fetchById']);
 
 Route::put('/deleteProducts/{p_id}',[All_Products_Controller::class,'deleteProduct']);
