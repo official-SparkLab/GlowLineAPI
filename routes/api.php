@@ -10,7 +10,10 @@ use App\Http\Controllers\Employee_Attendence_Controller;
 use App\Http\Controllers\Employee_Details_Controller;
 use App\Http\Controllers\Employee_Payment_Controller;
 use App\Http\Controllers\Expense_Controller;
+use App\Http\Controllers\Sale_Details_Controller;
+use App\Http\Controllers\Sales_Product_Controller;
 use App\Http\Controllers\Supplier_Controller;
+use App\Models\Sales_Product_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -166,3 +169,20 @@ Route::get('/fetchProduct/{p_id}',[All_Products_Controller::class,'fetchById']);
 Route::put('/deleteProducts/{p_id}',[All_Products_Controller::class,'deleteProduct']);
 
 Route::put('/addProduct/{p_id}',[All_Products_Controller::class,'updateProduct']); 
+
+// Sale Details Api
+
+Route::post('/addSale',[Sale_Details_Controller::class,'addSaleEntry']);
+
+Route::get('/fetchSale',[Sale_Details_Controller::class,'fetchAllProducts']);
+Route::get('/fetchSale/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
+    ->where('invoice_no', '.*');
+
+
+// Sale Product Api
+
+Route::post('/addSaleProduct',[Sales_Product_Controller::class,'addProduct']);
+
+Route::get('/fetchSaleProduct',[Sales_Product_Controller::class,'fetchAllProducts']);
+
+Route::get('/fetchSaleProduct/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');;
