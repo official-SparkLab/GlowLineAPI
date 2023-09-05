@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\All_Products_Controller;
 use App\Http\Controllers\Bank_Details_Controller;
 use App\Http\Controllers\Cashbook_Controller;
 use App\Http\Controllers\Company_Details_Controller;
@@ -153,3 +154,15 @@ Route::get('/fetchBankDetailsy/{bank_id}',[Bank_Details_Controller::class,'fetch
 Route::put('/deleteBankDetails/{bank_id}',[Bank_Details_Controller::class,'deleteBankDetails']);
 
 Route::put('/addBankDetails/{bank_id}',[Bank_Details_Controller::class,'updateBankDetails']); 
+
+// Product Details Api
+
+Route::post('/addProduct',[All_Products_Controller::class,'addProduct']);
+
+Route::get('/fetchProducts',[All_Products_Controller::class,'fetchAllProducts']);
+
+Route::get('/fetchProduct/{p_id}',[All_Products_Controller::class,'fetchById']);
+
+Route::put('/deleteProducts/{p_id}',[All_Products_Controller::class,'deleteProduct']);
+
+Route::put('/addProduct/{p_id}',[All_Products_Controller::class,'updateProduct']); 
