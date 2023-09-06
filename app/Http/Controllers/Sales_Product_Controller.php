@@ -65,6 +65,23 @@ class Sales_Product_Controller extends Controller
             return response()->json(["error" => "An error occurred"], 500);
         }
      }
+
+      public function deleteSaleProduct($sp_id)
+    {
+        try {
+            $product = Sales_Product_Model::where('sp_id', $sp_id)
+                ->first();
+
+            if ($product) {
+                $product->delete();
+                return response()->json(['Message' => 'Product deleted successfully']);
+            } else {
+                return response()->json(['Message' => 'Product not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
  
  
     

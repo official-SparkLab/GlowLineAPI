@@ -9,7 +9,7 @@ class Sales_Product_Model extends Model
 {
     use HasFactory;
     protected $table  = "tbl_sales_product";
-
+    protected $primaryKey = "sp_id";
 
     protected $fillable = [
         "sales_prod_id",
