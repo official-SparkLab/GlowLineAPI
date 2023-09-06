@@ -35,6 +35,7 @@ class Sale_Details_Controller extends Controller
          $product->sgat_amt = $request->input("sgat_amt");
          $product->igst = $request->input("igst");
          $product->igst_amt = $request->input("igst_amt");
+         $product->sub_total = $request->input("sub_total");
          $product->total = $request->input("total");
 
          $product->save();

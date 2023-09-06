@@ -32,6 +32,7 @@ class Sale_Details_Model extends Model
         "sgat_amt",
         "igst",
         "igst_amt",
+        "sub_total",
         "total",
         "status"
     ];
