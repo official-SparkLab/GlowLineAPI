@@ -53,7 +53,7 @@ class Sales_Product_Controller extends Controller
          try {
             $product = DB::table('tbl_sales_product')
                 ->where('invoice_no', '=', $invoice_no)
-                ->first();
+                ->get();
         
             if ($product) {
                 return response()->json(["data" => $product], 200);
