@@ -10,6 +10,8 @@ use App\Http\Controllers\Employee_Attendence_Controller;
 use App\Http\Controllers\Employee_Details_Controller;
 use App\Http\Controllers\Employee_Payment_Controller;
 use App\Http\Controllers\Expense_Controller;
+use App\Http\Controllers\Purchase_Details_Controller;
+use App\Http\Controllers\Purchase_Product_Controller;
 use App\Http\Controllers\Sale_Details_Controller;
 use App\Http\Controllers\Sales_Product_Controller;
 use App\Http\Controllers\Supplier_Controller;
@@ -194,3 +196,24 @@ Route::get('/fetchSaleProduct',[Sales_Product_Controller::class,'fetchAllProduct
 Route::get('/fetchSaleProduct/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
 Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'deleteSaleProduct']);
+
+
+
+// Purchase Details Api
+
+Route::post('/addPurchase',[Purchase_Details_Controller::class,'addPurchaseEntry']);
+
+Route::get('/fetchPurchase',[Purchase_Details_Controller::class,'fetchAllProducts']);
+Route::get('/fetchPurchase/{invoice_no}',[Purchase_Details_Controller::class,'fetchById'] )
+    ->where('invoice_no', '.*');
+
+
+// Purchase Product Api
+
+Route::post('/addPurchaseProduct',[Purchase_Product_Controller::class,'addProduct']);
+
+Route::get('/fetchPurchaseProduct',[Purchase_Product_Controller::class,'fetchAllProducts']);
+
+Route::get('/fetchPurchaseProduct/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
+
+Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
