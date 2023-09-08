@@ -10,7 +10,9 @@ use App\Http\Controllers\Employee_Attendence_Controller;
 use App\Http\Controllers\Employee_Details_Controller;
 use App\Http\Controllers\Employee_Payment_Controller;
 use App\Http\Controllers\Expense_Controller;
+use App\Http\Controllers\Jointable_Controller;
 use App\Http\Controllers\Purchase_Details_Controller;
+use App\Http\Controllers\Purchase_Payable_Controller;
 use App\Http\Controllers\Purchase_Product_Controller;
 use App\Http\Controllers\Raw_Usage_Controller;
 use App\Http\Controllers\Sale_Details_Controller;
@@ -227,3 +229,14 @@ Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::clas
 Route::post('/addRawUsage',[Raw_Usage_Controller::class,'addProduct']);
 
 Route::get('/fetchRawUsage',[Raw_Usage_Controller::class,'fetchAllProducts']);
+
+// Purchase Payble
+
+Route::post('/addPurchasePayable',[Purchase_Payable_Controller::class,'addPayable']);
+
+Route::get('/fetchPurchasePayable',[Purchase_Payable_Controller::class,'fetchAllPayable']);
+
+
+//Join table controller
+
+Route::get('/payableAmt/{sup_id}',[Jointable_Controller::class,'fetchAmountForPurchasePayable']);
