@@ -16,6 +16,7 @@ use App\Http\Controllers\Purchase_Payable_Controller;
 use App\Http\Controllers\Purchase_Product_Controller;
 use App\Http\Controllers\Raw_Usage_Controller;
 use App\Http\Controllers\Sale_Details_Controller;
+use App\Http\Controllers\Sale_Payable_Controller;
 use App\Http\Controllers\Sales_Product_Controller;
 use App\Http\Controllers\Supplier_Controller;
 use App\Models\Sales_Product_Model;
@@ -236,7 +237,15 @@ Route::post('/addPurchasePayable',[Purchase_Payable_Controller::class,'addPayabl
 
 Route::get('/fetchPurchasePayable',[Purchase_Payable_Controller::class,'fetchAllPayable']);
 
+// Sale Payble
+
+Route::post('/addSalePayable',[Sale_Payable_Controller::class,'addPayable']);
+
+Route::get('/fethSalePayable',[Sale_Payable_Controller::class,'fetchAllPayable']);
+
 
 //Join table controller
 
 Route::get('/payableAmt/{sup_id}',[Jointable_Controller::class,'fetchAmountForPurchasePayable']);
+
+Route::get('/salePayableAmt/{cust_id}',[Jointable_Controller::class,'fetchAmountForSalePayable']);

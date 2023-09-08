@@ -17,5 +17,14 @@ class Jointable_Controller extends Controller
         return response()->json(["totalAmt" => $totalAmt - $totalPaidamt]);
 
     }
+
+    public function fetchAmountForSalePayable($cust_id)
+    {
+        $totalAmt = DB::select("SELECT SUM(total) as totalSum from tbl_sales_details where cust_id = $cust_id")[0]->totalSum;
+
+        $totalPaidamt = DB::select("SELECT SUM(paid_amount) as totalSum from tbl_sale_payable where cust_id = $cust_id")[0]->totalSum;
+        return response()->json(["totalAmt" => $totalAmt - $totalPaidamt]);
+
+    }
     
 }
