@@ -237,11 +237,17 @@ Route::post('/addPurchasePayable',[Purchase_Payable_Controller::class,'addPayabl
 
 Route::get('/fetchPurchasePayable',[Purchase_Payable_Controller::class,'fetchAllPayable']);
 
+Route::delete('/deletePurchasePayable/{pur_pay_id}',[Purchase_Payable_Controller::class,'deletePurchasePayable']);
+
+
 // Sale Payble
 
 Route::post('/addSalePayable',[Sale_Payable_Controller::class,'addPayable']);
 
 Route::get('/fethSalePayable',[Sale_Payable_Controller::class,'fetchAllPayable']);
+
+Route::delete('/deleteSalePayable/{sale_pay_id}',[Sale_Payable_Controller::class,'deleteSalePayable']);
+
 
 
 //Join table controller

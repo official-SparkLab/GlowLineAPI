@@ -42,4 +42,22 @@ class Purchase_Payable_Controller extends Controller
              return response()->json(["message" => "No data found"], 404);
          }
      }
+
+
+     public function deletePurchasePayable($pur_pay_id)
+     {
+         try {
+             $product = Purchase_Payable_Model::where('pur_pay_id', $pur_pay_id)
+                 ->first();
+ 
+             if ($product) {
+                 $product->delete();
+                 return response()->json(['Message' => 'Record deleted successfully']);
+             } else {
+                 return response()->json(['Message' => 'Product not found']);
+             }
+         } catch (\Exception $e) {
+             return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+         }
+     }
 }
