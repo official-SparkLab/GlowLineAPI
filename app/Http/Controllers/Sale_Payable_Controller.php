@@ -40,4 +40,22 @@ class Sale_Payable_Controller extends Controller
             return response()->json(["message" => "No data found"], 404);
         }
     }
+
+
+    public function deleteSalePayable($sale_pay_id)
+    {
+        try {
+            $product = Sale_Payble_Model::where('sale_pay_id', $sale_pay_id)
+                ->first();
+
+            if ($product) {
+                $product->delete();
+                return response()->json(['Message' => 'Record deleted successfully']);
+            } else {
+                return response()->json(['Message' => 'Product not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
 }
