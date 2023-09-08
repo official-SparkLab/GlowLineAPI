@@ -128,5 +128,19 @@ class All_Products_Controller extends Controller
              return response()->json(["message" => "No data found"], 404);
          }
      }
+
+
+     public function fetchProductForUsage()
+     {
+         $products = DB::table('tbl_all_products')
+             ->where('type', 'Raw') // Corrected the SQL condition
+             ->get();
+     
+         if ($products->count() > 0) {
+             return response()->json(["data" => $products], 200);
+         } else {
+             return response()->json(["message" => "No data found"], 404);
+         }
+     }
      
 }

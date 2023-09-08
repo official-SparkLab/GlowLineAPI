@@ -12,6 +12,7 @@ use App\Http\Controllers\Employee_Payment_Controller;
 use App\Http\Controllers\Expense_Controller;
 use App\Http\Controllers\Purchase_Details_Controller;
 use App\Http\Controllers\Purchase_Product_Controller;
+use App\Http\Controllers\Raw_Usage_Controller;
 use App\Http\Controllers\Sale_Details_Controller;
 use App\Http\Controllers\Sales_Product_Controller;
 use App\Http\Controllers\Supplier_Controller;
@@ -170,6 +171,9 @@ Route::get('/fetchProductsForSale',[All_Products_Controller::class,'fetchProduct
 
 Route::get('/fetchProductsForPurchase',[All_Products_Controller::class,'fetchProductForPurchase']);
 
+Route::get('/fetchProductsForUsage',[All_Products_Controller::class,'fetchProductForUsage']);
+
+
 
 
 Route::get('/fetchProduct/{p_id}',[All_Products_Controller::class,'fetchById']);
@@ -217,3 +221,9 @@ Route::get('/fetchPurchaseProduct',[Purchase_Product_Controller::class,'fetchAll
 Route::get('/fetchPurchaseProduct/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
 Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
+
+// Raw Usage API
+
+Route::post('/addRawUsage',[Raw_Usage_Controller::class,'addProduct']);
+
+Route::get('/fetchRawUsage',[Raw_Usage_Controller::class,'fetchAllProducts']);
