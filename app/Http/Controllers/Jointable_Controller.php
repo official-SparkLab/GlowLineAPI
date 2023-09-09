@@ -28,53 +28,55 @@ class Jointable_Controller extends Controller
     }
 
 
-        public function CustomerLedger($cust_id, $date1, $date2)
-    {
-        $post = DB::select("
-            SELECT date, invoice_no, sub_total as 0, total
-            FROM tbl_sales_details 
-            WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
+      public function CustomerLedger($cust_id, $date1, $date2)
+{
+    $query = DB::table('tbl_sales_details')
+        ->select('date', 'invoice_no', 'sub_total as 0', 'total')
+        ->where('date', '>=', $date1)
+        ->where('date', '<=', $date2)
+        ->where('cust_id', $cust_id);
 
-            AND cust_id = '" . $cust_id . "'
-    
-            UNION ALL
-    
-            SELECT date, cust_name, paid_amount, '0'
-            FROM tbl_sale_payable 
-            WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
-            AND cust_id = '" . $cust_id . "'
-    
-            ORDER BY date;
-        ");
+    $query->unionAll(
+        DB::table('tbl_sale_payable')
+            ->select('date', 'cust_name', 'paid_amount', DB::raw('0 AS total'))
+            ->where('date', '>=', $date1)
+            ->where('date', '<=', $date2)
+            ->where('cust_id', $cust_id)
+    );
 
-        return response()->json([
-            "data" => $post
-        ]);
-    }
+    $query->orderBy('date');
+
+    $results = $query->get();
+
+    return response()->json([
+        "data" => $results
+    ]);
+}
 
 
-      public function supplierLedger($sup_id, $date1, $date2)
-    {
-        $post = DB::select("
-            SELECT date, invoice_no, sub_total as 0, total
-            FROM tbl_raw_purchase 
-            WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
 
-            AND sup_id = '" . $sup_id . "'
-    
-            UNION ALL
-    
-            SELECT date, sup_name, paid_amount, '0'
-            FROM tbl_purchase_payble 
-            WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
-            AND sup_id = '" . $sup_id . "'
-    
-            ORDER BY date;
-        ");
+     public function supplierLedger($sup_id, $date1, $date2)
+{
+    $query = DB::table('tbl_raw_purchase')
+        ->select('date', 'invoice_no', 'total', 'sub_total as 0)')
+        ->whereBetween('date', [$date1, $date2])
+        ->where('sup_id', $sup_id);
 
-        return response()->json([
-            "data" => $post
-        ]);
-    }
+    $query->unionAll(
+        DB::table('tbl_purchase_payable')
+            ->select('date', 'sup_name', DB::raw('0 AS total'),'paid_amount' )
+            ->whereBetween('date', [$date1, $date2])
+            ->where('sup_id', $sup_id)
+    );
+
+    $query->orderBy('date');
+
+    $results = $query->get();
+
+    return response()->json([
+        "data" => $results
+    ]);
+}
+
     
 }
