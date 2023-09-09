@@ -63,7 +63,7 @@ class Jointable_Controller extends Controller
         ->where('sup_id', $sup_id);
 
     $query->unionAll(
-        DB::table('tbl_purchase_payable')
+        DB::table('tbl_purchase_payble')
             ->select('date', 'sup_name', DB::raw('0 AS total'),'paid_amount' )
             ->whereBetween('date', [$date1, $date2])
             ->where('sup_id', $sup_id)
