@@ -255,3 +255,8 @@ Route::delete('/deleteSalePayable/{sale_pay_id}',[Sale_Payable_Controller::class
 Route::get('/payableAmt/{sup_id}',[Jointable_Controller::class,'fetchAmountForPurchasePayable']);
 
 Route::get('/salePayableAmt/{cust_id}',[Jointable_Controller::class,'fetchAmountForSalePayable']);
+
+Route::get('/customerLedger/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'CustomerLedger']);
+
+Route::get('/supplierLedger/{sup_id}/{date1}/{date2}',[Jointable_Controller::class,'supplierLedger']);
+
