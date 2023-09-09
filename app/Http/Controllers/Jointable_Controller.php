@@ -31,7 +31,7 @@ class Jointable_Controller extends Controller
       public function CustomerLedger($cust_id, $date1, $date2)
 {
     $query = DB::table('tbl_sales_details')
-        ->select('date', 'invoice_no', 'sub_total as 0', 'total')
+        ->select('date', 'invoice_no', '0 AS sub_total', 'total')
         ->where('date', '>=', $date1)
         ->where('date', '<=', $date2)
         ->where('cust_id', $cust_id);
@@ -58,7 +58,7 @@ class Jointable_Controller extends Controller
      public function supplierLedger($sup_id, $date1, $date2)
 {
     $query = DB::table('tbl_raw_purchase')
-        ->select('date', 'invoice_no', 'total', 'sub_total as 0)')
+        ->select('date', 'invoice_no', 'total', '0 AS sub_total)')
         ->whereBetween('date', [$date1, $date2])
         ->where('sup_id', $sup_id);
 
