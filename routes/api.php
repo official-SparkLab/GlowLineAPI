@@ -260,3 +260,7 @@ Route::get('/customerLedger/{cust_id}/{date1}/{date2}',[Jointable_Controller::cl
 
 Route::get('/supplierLedger/{sup_id}/{date1}/{date2}',[Jointable_Controller::class,'supplierLedger']);
 
+
+Route::get('/fetchSProduct/{invoice_no}',[Jointable_Controller::class,'SalesProduct']) ->where('invoice_no', '.*');
+
+
