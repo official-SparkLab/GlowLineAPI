@@ -14,6 +14,8 @@ use App\Http\Controllers\Jointable_Controller;
 use App\Http\Controllers\Purchase_Details_Controller;
 use App\Http\Controllers\Purchase_Payable_Controller;
 use App\Http\Controllers\Purchase_Product_Controller;
+use App\Http\Controllers\Quatation_Details_Controller;
+use App\Http\Controllers\Quatation_Product_Controller;
 use App\Http\Controllers\Raw_Usage_Controller;
 use App\Http\Controllers\Sale_Details_Controller;
 use App\Http\Controllers\Sale_Payable_Controller;
@@ -203,6 +205,27 @@ Route::get('/fetchSaleProduct',[Sales_Product_Controller::class,'fetchAllProduct
 Route::get('/fetchSaleProduct/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
 Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'deleteSaleProduct']);
+
+
+
+
+// Quatation Details Api
+
+Route::post('/addQuatation',[Quatation_Details_Controller::class,'addSaleEntry']);
+
+Route::get('/fetchQuatation',[Quatation_Details_Controller::class,'fetchAllProducts']);
+Route::get('/fetchQuatation/{voucher_no}',[Quatation_Details_Controller::class,'fetchById'] )
+    ->where('voucher_no', '.*');
+
+// Quatation Product Api
+
+Route::post('/addQuataionProduct',[Quatation_Product_Controller::class,'addProduct']);
+
+Route::get('/fetchQuatationProduct',[Quatation_Product_Controller::class,'fetchAllProducts']);
+
+Route::get('/fetchQuatationProduct/{voucher_no}',[Quatation_Product_Controller::class,'fetchById']) ->where('voucher_no', '.*');
+
+Route::delete('/deleteQuatationProduct/{qp_id}',[Quatation_Product_Controller::class,'deleteSaleProduct']);
 
 
 
