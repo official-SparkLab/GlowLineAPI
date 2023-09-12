@@ -241,6 +241,10 @@ Route::get('/fetchPurchase/{invoice_no}',[Purchase_Details_Controller::class,'fe
     ->where('invoice_no', '.*');
 
 
+Route::get('/fetchPurchaseById/{sup_id}',[Purchase_Details_Controller::class,'fetchBySupId']);
+
+
+
 // Purchase Product Api
 
 Route::post('/addPurchaseProduct',[Purchase_Product_Controller::class,'addProduct']);
