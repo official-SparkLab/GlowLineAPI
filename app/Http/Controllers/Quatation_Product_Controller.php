@@ -77,7 +77,7 @@ class Quatation_Product_Controller extends Controller
                 $product->delete();
                 return response()->json(['Message' => 'Product deleted successfully']);
             } else {
-                return response()->json(['Message' => 'Product not found']);
+                return response()->json(['Message' => 'Product not found'],404);
             }
         } catch (\Exception $e) {
             return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
