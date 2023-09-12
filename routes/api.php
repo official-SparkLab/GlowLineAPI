@@ -195,6 +195,9 @@ Route::get('/fetchSale',[Sale_Details_Controller::class,'fetchAllProducts']);
 Route::get('/fetchSale/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
+Route::get('/fetchSaleById/{cust_id}',[Sale_Details_Controller::class,'fetchByCustId']);
+
+
 
 // Sale Product Api
 
