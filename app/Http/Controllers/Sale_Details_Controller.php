@@ -76,6 +76,25 @@ class Sale_Details_Controller extends Controller
             return response()->json(["error" => "An error occurred"], 500);
         }
      }
+
+
+      public function fetchByCustId($cust_id)
+     {
+        try {
+            $product = DB::table('tbl_sales_details')
+                ->where('cust_id', '=', $cust_id)
+                ->get();
+        
+            if ($product) {
+                return response()->json(["data" => $product], 200);
+            } else {
+                return response()->json(["message" => "No data found"], 404);
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(["error" => "An error occurred"], 500);
+        }
+     }
  
    
  

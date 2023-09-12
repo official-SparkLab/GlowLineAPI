@@ -195,6 +195,9 @@ Route::get('/fetchSale',[Sale_Details_Controller::class,'fetchAllProducts']);
 Route::get('/fetchSale/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
+Route::get('/fetchSaleById/{cust_id}',[Sale_Details_Controller::class,'fetchByCustId']);
+
+
 
 // Sale Product Api
 
@@ -236,6 +239,10 @@ Route::post('/addPurchase',[Purchase_Details_Controller::class,'addPurchaseEntry
 Route::get('/fetchPurchase',[Purchase_Details_Controller::class,'fetchAllProducts']);
 Route::get('/fetchPurchase/{invoice_no}',[Purchase_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
+
+
+Route::get('/fetchPurchaseById/{sup_id}',[Purchase_Details_Controller::class,'fetchBySupId']);
+
 
 
 // Purchase Product Api
