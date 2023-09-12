@@ -10,6 +10,7 @@ use App\Http\Controllers\Employee_Attendence_Controller;
 use App\Http\Controllers\Employee_Details_Controller;
 use App\Http\Controllers\Employee_Payment_Controller;
 use App\Http\Controllers\Expense_Controller;
+use App\Http\Controllers\Goods_Usage_Controller;
 use App\Http\Controllers\Jointable_Controller;
 use App\Http\Controllers\Purchase_Details_Controller;
 use App\Http\Controllers\Purchase_Payable_Controller;
@@ -178,6 +179,9 @@ Route::get('/fetchProductsForPurchase',[All_Products_Controller::class,'fetchPro
 
 Route::get('/fetchProductsForUsage',[All_Products_Controller::class,'fetchProductForUsage']);
 
+Route::get('/fetchProductsForGoodsUsage',[All_Products_Controller::class,'fetchProductForGoodsUsage']);
+
+
 
 
 
@@ -260,6 +264,12 @@ Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::clas
 Route::post('/addRawUsage',[Raw_Usage_Controller::class,'addProduct']);
 
 Route::get('/fetchRawUsage',[Raw_Usage_Controller::class,'fetchAllProducts']);
+
+// Goods Usage API
+
+Route::post('/addGoodsUsage',[Goods_Usage_Controller::class,'addProduct']);
+
+Route::get('/fetchGoodsUsage',[Goods_Usage_Controller::class,'fetchAllProducts']);
 
 // Purchase Payble
 
