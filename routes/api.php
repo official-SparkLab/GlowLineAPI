@@ -257,7 +257,7 @@ Route::get('/fetchPurchaseProduct',[Purchase_Product_Controller::class,'fetchAll
 
 Route::get('/fetchPurchaseProduct/{p_date}/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
-Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
+Route::delete('/deletePurchaseProduct/{row_p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
 
 // Raw Usage API
 
@@ -302,5 +302,8 @@ Route::get('/supplierLedger/{sup_id}/{date1}/{date2}',[Jointable_Controller::cla
 
 
 Route::get('/fetchSProduct/{date}/{invoice_no}',[Jointable_Controller::class,'SalesProduct']) ->where('invoice_no', '.*');
+
+Route::get('/fetchPProduct/{date}/{invoice_no}',[Jointable_Controller::class,'PurchaseProduct']) ->where('invoice_no', '.*');
+
 
 

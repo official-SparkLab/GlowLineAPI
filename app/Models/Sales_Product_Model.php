@@ -15,7 +15,7 @@ class Sales_Product_Model extends Model
         "sales_prod_id",
         "invoice_no",
         "s_date",
-        "gp_id",
+        "p_id",
         "prod_name",
         "hsn",
         "weight",

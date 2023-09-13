@@ -19,7 +19,7 @@ class Purchase_Product_Controller extends Controller
         $product->pur_prod_id = $request->input("pur_prod_id");
         $product->invoice_no = $request->input("invoice_no");
         $product->p_date = $request->input("p_date");
-        $product->rp_id = $request->input("rp_id");
+        $product->p_id = $request->input("p_id");
         $product->prod_name = $request->input("prod_name");
         $product->weight = $request->input("weight");
         $product->qty = $request->input("qty");
@@ -68,10 +68,10 @@ class Purchase_Product_Controller extends Controller
         }
     }
 
-    public function deleteSaleProduct($p_id)
+    public function deleteSaleProduct($row_p_id)
     {
         try {
-            $product = Purchase_Product_Model::where('p_id', $p_id)
+            $product = Purchase_Product_Model::where('row_p_id', $row_p_id)
                 ->first();
 
             if ($product) {

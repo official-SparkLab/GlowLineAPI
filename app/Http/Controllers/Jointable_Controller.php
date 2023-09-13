@@ -79,16 +79,44 @@ class Jointable_Controller extends Controller
 
     // Joining Table for product_name
 
-    public function SalesProduct($invoice_no)
+    public function SalesProduct($date, $invoice_no)
     {
-        $product = DB::select("
-    SELECT tbl_sales_product.hsn, tbl_sales_product.qty, tbl_sales_product.weight, tbl_sales_product.rate, tbl_sales_product.total ,tbl_sales_product.gp_id,tbl_all_products.prod_name
-FROM tbl_sales_product
-LEFT JOIN tbl_all_products
-ON tbl_sales_product.gp_id = tbl_all_products.p_id
-WHERE tbl_sales_product.invoice_no = $invoice_no;
-    ");
+        $product = DB::table('tbl_sales_product')
+            ->select(
+                'tbl_sales_product.hsn',
+                'tbl_sales_product.qty',
+                'tbl_sales_product.weight',
+                'tbl_sales_product.rate',
+                'tbl_sales_product.total',
+                'tbl_sales_product.p_id',
+                'tbl_all_products.prod_name'
+            )
+            ->leftJoin('tbl_all_products', 'tbl_sales_product.p_id', '=', 'tbl_all_products.p_id')
+            ->where('tbl_sales_product.invoice_no', $invoice_no)
+            ->where('tbl_sales_product.s_date', $date)
+            ->get();
+    
+        return response()->json(['data' => $product], 200);
+    }
+    
 
-    return response()->json(['data'=>$product],200);
+    public function PurchaseProduct($date, $invoice_no)
+    {
+        $product = DB::table('tbl_raw_purchase_product')
+            ->select(
+                'tbl_raw_purchase_product.hsn',
+                'tbl_raw_purchase_product.qty',
+                'tbl_raw_purchase_product.weight',
+                'tbl_raw_purchase_product.rate',
+                'tbl_raw_purchase_product.total',
+                'tbl_raw_purchase_product.p_id',
+                'tbl_all_products.prod_name'
+            )
+            ->leftJoin('tbl_all_products', 'tbl_raw_purchase_product.p_id', '=', 'tbl_all_products.p_id')
+            ->where('tbl_raw_purchase_product.invoice_no', $invoice_no)
+            ->where('tbl_raw_purchase_product.p_date', $date)
+            ->get();
+    
+        return response()->json(['data' => $product], 200);
     }
 }
