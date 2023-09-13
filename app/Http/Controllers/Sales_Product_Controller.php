@@ -47,11 +47,12 @@ class Sales_Product_Controller extends Controller
  
      // Fetch product by Id
  
-     public function fetchById($invoice_no)
+     public function fetchById($date,$invoice_no)
      {
     
          try {
             $product = DB::table('tbl_sales_product')
+                ->where('s_date', '=', $date)
                 ->where('invoice_no', '=', $invoice_no)
                 ->get();
         

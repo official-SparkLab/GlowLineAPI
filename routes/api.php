@@ -196,7 +196,7 @@ Route::put('/addProduct/{p_id}',[All_Products_Controller::class,'updateProduct']
 Route::post('/addSale',[Sale_Details_Controller::class,'addSaleEntry']);
 
 Route::get('/fetchSale',[Sale_Details_Controller::class,'fetchAllProducts']);
-Route::get('/fetchSale/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
+Route::get('/fetchSale/{date}/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
 Route::get('/fetchSaleById/{cust_id}',[Sale_Details_Controller::class,'fetchByCustId']);
@@ -209,7 +209,7 @@ Route::post('/addSaleProduct',[Sales_Product_Controller::class,'addProduct']);
 
 Route::get('/fetchSaleProduct',[Sales_Product_Controller::class,'fetchAllProducts']);
 
-Route::get('/fetchSaleProduct/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
+Route::get('/fetchSaleProduct/{s_date}/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
 Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'deleteSaleProduct']);
 
@@ -241,7 +241,7 @@ Route::delete('/deleteQuatationProduct/{qp_id}',[Quatation_Product_Controller::c
 Route::post('/addPurchase',[Purchase_Details_Controller::class,'addPurchaseEntry']);
 
 Route::get('/fetchPurchase',[Purchase_Details_Controller::class,'fetchAllProducts']);
-Route::get('/fetchPurchase/{invoice_no}',[Purchase_Details_Controller::class,'fetchById'] )
+Route::get('/fetchPurchase/{date}/{invoice_no}',[Purchase_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
 
@@ -255,7 +255,7 @@ Route::post('/addPurchaseProduct',[Purchase_Product_Controller::class,'addProduc
 
 Route::get('/fetchPurchaseProduct',[Purchase_Product_Controller::class,'fetchAllProducts']);
 
-Route::get('/fetchPurchaseProduct/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
+Route::get('/fetchPurchaseProduct/{p_date}/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
 
 Route::delete('/deletePurchaseProduct/{p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
 
@@ -301,6 +301,6 @@ Route::get('/customerLedger/{cust_id}/{date1}/{date2}',[Jointable_Controller::cl
 Route::get('/supplierLedger/{sup_id}/{date1}/{date2}',[Jointable_Controller::class,'supplierLedger']);
 
 
-Route::get('/fetchSProduct/{invoice_no}',[Jointable_Controller::class,'SalesProduct']) ->where('invoice_no', '.*');
+Route::get('/fetchSProduct/{date}/{invoice_no}',[Jointable_Controller::class,'SalesProduct']) ->where('invoice_no', '.*');
 
 
