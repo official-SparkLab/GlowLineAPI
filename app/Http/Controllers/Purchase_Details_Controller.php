@@ -59,10 +59,11 @@ class Purchase_Details_Controller extends Controller
  
      // Fetch product by Id
  
-     public function fetchById($invoice_no)
+     public function fetchById($date,$invoice_no)
      {
         try {
             $product = DB::table('tbl_raw_purchase')
+            ->where('date', '=', $date)
                 ->where('invoice_no', '=', $invoice_no)
                 ->first();
         
