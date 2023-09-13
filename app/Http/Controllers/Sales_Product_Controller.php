@@ -18,7 +18,7 @@ class Sales_Product_Controller extends Controller
          $product->sales_prod_id = $request->input("sales_prod_id");
          $product->invoice_no = $request->input("invoice_no");
          $product->s_date = $request->input("s_date");
-         $product->gp_id = $request->input("gp_id");
+         $product->p_id = $request->input("p_id");
          $product->prod_name = $request->input("prod_name");
          $product->hsn = $request->input("hsn");
          $product->weight = $request->input("weight");
