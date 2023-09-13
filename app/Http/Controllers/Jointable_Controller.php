@@ -100,7 +100,7 @@ class Jointable_Controller extends Controller
     }
     
 
-    public function PurchaseProduct($date, $invoice_no)
+    public function PurchaseProduct($invoice_no)
     {
         $product = DB::table('tbl_raw_purchase_product')
             ->select(
@@ -114,7 +114,6 @@ class Jointable_Controller extends Controller
             )
             ->leftJoin('tbl_all_products', 'tbl_raw_purchase_product.p_id', '=', 'tbl_all_products.p_id')
             ->where('tbl_raw_purchase_product.invoice_no', $invoice_no)
-            ->where('tbl_raw_purchase_product.p_date', $date)
             ->get();
     
         return response()->json(['data' => $product], 200);
