@@ -95,10 +95,10 @@ class Jointable_Controller extends Controller
             ->where('tbl_sales_product.invoice_no', $invoice_no)
             ->where('tbl_sales_product.s_date', $date)
             ->get();
-    
+
         return response()->json(['data' => $product], 200);
     }
-    
+
 
     public function PurchaseProduct($invoice_no)
     {
@@ -115,7 +115,53 @@ class Jointable_Controller extends Controller
             ->leftJoin('tbl_all_products', 'tbl_raw_purchase_product.p_id', '=', 'tbl_all_products.p_id')
             ->where('tbl_raw_purchase_product.invoice_no', $invoice_no)
             ->get();
-    
+
         return response()->json(['data' => $product], 200);
+    }
+
+
+    // Genereal Ledger APi
+
+    public function GeneralLedger($date1, $date2)
+    {
+        $post = DB::select("
+                SELECT date, invoice_no, 'Sale' As cust_name, 0 AS sub_total,total
+                FROM tbl_sales_details 
+                where date between '" . $date1 . "' and '" . $date2 . "'
+        
+                UNION ALL
+        
+                SELECT date, cust_name, 'Sale', paid_amount, '0' 
+                FROM tbl_sale_payable 
+                where date between '" . $date1 . "' and '" . $date2 . "'
+        
+                UNION ALL
+        
+                SELECT date, invoice_no, 'Purchase', total, '0' 
+                FROM tbl_raw_purchase
+                where date between '" . $date1 . "' and '" . $date2 . "'
+        
+                UNION ALL
+        
+                SELECT date, sup_name, 'Purchase', '0', paid_amount 
+                FROM tbl_purchase_payble
+                where date between '" . $date1 . "' and '" . $date2 . "'
+        
+                UNION ALL
+        
+                SELECT date, exp_name, 'Expense', '0', exp_amt 
+                FROM tbl_expenses
+                where date between '" . $date1 . "' and '" . $date2 . "'
+        
+        
+                ORDER BY date; 
+                
+                ");
+
+        return response()->json([
+
+            "data" => $post
+
+        ]);
     }
 }
