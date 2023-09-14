@@ -40,4 +40,22 @@ class Raw_Usage_Controller extends Controller
             return response()->json(["message" => "No data found"], 404);
         }
     }
+
+
+    public function deleteRawUsage($raw_id)
+    {
+        try {
+            $product = Raw_Usage_Model::where('raw_id', $raw_id)
+                ->first();
+
+            if ($product) {
+                $product->delete();
+                return response()->json(['Message' => 'Record deleted successfully']);
+            } else {
+                return response()->json(['Message' => 'Product not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
 }
