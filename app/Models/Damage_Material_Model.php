@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Goods_Usage_Model extends Model
+class Damage_Material_Model extends Model
 {
     use HasFactory;
 
-    protected $table  = "tbl_goods_usage";
-    protected $primaryKey = "g_id";
+    protected $table  = "tbl_damage_material";
+    protected $primaryKey = "dam_id";
 
     protected $fillable = [
         "prod_id",
@@ -18,8 +18,6 @@ class Goods_Usage_Model extends Model
         "date",
         "hsn",
         "qty",
-        "weight",
-        "total_weight",
         "type",
         "status"
     ];

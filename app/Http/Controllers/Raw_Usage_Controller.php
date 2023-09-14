@@ -20,6 +20,8 @@ class Raw_Usage_Controller extends Controller
         $product->qty = $request->input("qty");
         $product->weight = $request->input("weight");
         $product->total_weight = $request->input("total_weight");
+        $product->type = $request->input("type");
+
        
         $product->save();
 
