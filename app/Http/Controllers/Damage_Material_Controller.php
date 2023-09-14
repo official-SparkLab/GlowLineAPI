@@ -39,4 +39,21 @@ class Damage_Material_Controller extends Controller
             return response()->json(["message" => "No data found"], 404);
         }
     }
+
+    public function deleteMaterialDamage($dam_id)
+    {
+        try {
+            $product = Damage_Material_Model::where('dam_id', $dam_id)
+                ->first();
+
+            if ($product) {
+                $product->delete();
+                return response()->json(['Message' => 'Record deleted successfully']);
+            } else {
+                return response()->json(['Message' => 'Product not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
 }

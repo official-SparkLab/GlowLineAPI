@@ -266,17 +266,26 @@ Route::post('/addRawUsage',[Raw_Usage_Controller::class,'addProduct']);
 
 Route::get('/fetchRawUsage',[Raw_Usage_Controller::class,'fetchAllProducts']);
 
+Route::delete('/deleteRawUsage/{raw_id}',[Raw_Usage_Controller::class,'deleteRawUsage']);
+
+
 // Goods Usage API
 
 Route::post('/addGoodsUsage',[Goods_Usage_Controller::class,'addProduct']);
 
 Route::get('/fetchGoodsUsage',[Goods_Usage_Controller::class,'fetchAllProducts']);
 
+Route::delete('/deleteGoodsUsage/{g_id}',[Goods_Usage_Controller::class,'deleteGoodsUsage']);
+
+
 // Damage Material API
 
 Route::post('/addDamage',[Damage_Material_Controller::class,'addProduct']);
 
 Route::get('/fetchDamage',[Damage_Material_Controller::class,'fetchAllProducts']);
+
+Route::delete('/deleteMaterialDamage/{dam_id}',[Damage_Material_Controller::class,'deleteMaterialDamage']);
+
 
 // Purchase Payble
 
