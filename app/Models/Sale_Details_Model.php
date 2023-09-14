@@ -26,6 +26,8 @@ class Sale_Details_Model extends Model
         "destination",
         "trans_amt",
         "hamali",
+        "driver_name",
+        "vehicle_no",
         "cgst",
         "cgst_amt",
         "sgat",
