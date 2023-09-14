@@ -20,6 +20,7 @@ class Raw_Usage_Model extends Model
         "qty",
         "weight",
         "total_weight",
+        "type",
         "status"
     ];
 

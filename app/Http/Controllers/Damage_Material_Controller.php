@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Goods_Usage_Model;
+use App\Models\Damage_Material_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Goods_Usage_Controller extends Controller
+class Damage_Material_Controller extends Controller
 {
     //
 
+    
     public function addProduct (Request $request)
     {
-        $product = new Goods_Usage_Model();
+        $product = new Damage_Material_Model();
         $product->prod_id = $request->input("prod_id");
         $product->prod_name = $request->input("prod_name");
         $product->date = $request->input("date");
         $product->hsn = $request->input("hsn");
         $product->qty = $request->input("qty");
-        $product->weight = $request->input("weight");
-        $product->total_weight = $request->input("total_weight");
         $product->type = $request->input("type");
 
        
@@ -32,7 +31,7 @@ class Goods_Usage_Controller extends Controller
     // Fetch All Product data
     public function fetchAllProducts()
     {
-        $product = DB::select("SELECT * FROM tbl_goods_usage");
+        $product = DB::select("SELECT * FROM tbl_damage_material");
     
         if ($product) {
             return response()->json(["data" => $product], 200);

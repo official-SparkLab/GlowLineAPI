@@ -5,6 +5,7 @@ use App\Http\Controllers\Bank_Details_Controller;
 use App\Http\Controllers\Cashbook_Controller;
 use App\Http\Controllers\Company_Details_Controller;
 use App\Http\Controllers\Customer_Controller;
+use App\Http\Controllers\Damage_Material_Controller;
 use App\Http\Controllers\Employee_Advance_Payment_Controller;
 use App\Http\Controllers\Employee_Attendence_Controller;
 use App\Http\Controllers\Employee_Details_Controller;
@@ -270,6 +271,12 @@ Route::get('/fetchRawUsage',[Raw_Usage_Controller::class,'fetchAllProducts']);
 Route::post('/addGoodsUsage',[Goods_Usage_Controller::class,'addProduct']);
 
 Route::get('/fetchGoodsUsage',[Goods_Usage_Controller::class,'fetchAllProducts']);
+
+// Damage Material API
+
+Route::post('/addDamage',[Damage_Material_Controller::class,'addProduct']);
+
+Route::get('/fetchDamage',[Damage_Material_Controller::class,'fetchAllProducts']);
 
 // Purchase Payble
 
