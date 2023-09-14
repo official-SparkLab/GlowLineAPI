@@ -28,26 +28,19 @@ class Jointable_Controller extends Controller
 
     public function CustomerLedger($cust_id, $date1, $date2)
     {
-        $query = DB::table('tbl_sales_details')
-            ->select('date', 'invoice_no', DB::raw('0 AS sub_total'), 'total')
-            ->where('date', '>=', $date1)
-            ->where('date', '<=', $date2)
-            ->where('cust_id', $cust_id);
-
-        $query->unionAll(
-            DB::table('tbl_sale_payable')
-                ->select('date', 'cust_name', 'paid_amount', DB::raw('0 AS total'))
-                ->where('date', '>=', $date1)
-                ->where('date', '<=', $date2)
-                ->where('cust_id', $cust_id)
-        );
-
-        $query->orderBy('date');
-
-        $results = $query->get();
+        $query = DB::select("
+                SELECT date, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
+                FROM tbl_sales_details 
+                where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'
+        
+                UNION ALL
+        
+                SELECT date, cust_name, 'Receipt', paid_amount, '0' 
+                FROM tbl_sale_payable 
+                where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
 
         return response()->json([
-            "data" => $results
+            "data" => $query
         ]);
     }
 
@@ -55,24 +48,18 @@ class Jointable_Controller extends Controller
 
     public function supplierLedger($sup_id, $date1, $date2)
     {
-        $query = DB::table('tbl_raw_purchase')
-            ->select('date', 'invoice_no', 'total', DB::raw('0 AS sub_total'))
-            ->whereBetween('date', [$date1, $date2])
-            ->where('sup_id', $sup_id);
+        $query = DB::select("SELECT date, invoice_no, 'Purchase' AS sup_name, total, '0' As sub_total
+        FROM tbl_raw_purchase
+        where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'
 
-        $query->unionAll(
-            DB::table('tbl_purchase_payble')
-                ->select('date', 'sup_name', DB::raw('0 AS total'), 'paid_amount')
-                ->whereBetween('date', [$date1, $date2])
-                ->where('sup_id', $sup_id)
-        );
+        UNION ALL
 
-        $query->orderBy('date');
-
-        $results = $query->get();
+        SELECT date, sup_name, 'Receipt', '0', paid_amount 
+        FROM tbl_purchase_payble
+        where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
 
         return response()->json([
-            "data" => $results
+            "data" => $query
         ]);
     }
 
@@ -125,13 +112,13 @@ class Jointable_Controller extends Controller
     public function GeneralLedger($date1, $date2)
     {
         $post = DB::select("
-                SELECT date, invoice_no, 'Sale' As cust_name, 0 AS sub_total,total
+                SELECT date, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
                 FROM tbl_sales_details 
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, cust_name, 'Sale', paid_amount, '0' 
+                SELECT date, cust_name, 'Receipt', paid_amount, '0' 
                 FROM tbl_sale_payable 
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
@@ -143,7 +130,7 @@ class Jointable_Controller extends Controller
         
                 UNION ALL
         
-                SELECT date, sup_name, 'Purchase', '0', paid_amount 
+                SELECT date, sup_name, 'Receipt', '0', paid_amount 
                 FROM tbl_purchase_payble
                 where date between '" . $date1 . "' and '" . $date2 . "'
         

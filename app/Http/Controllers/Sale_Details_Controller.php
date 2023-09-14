@@ -29,6 +29,8 @@ class Sale_Details_Controller extends Controller
         $product->destination = $request->input("destination");
         $product->trans_amt = $request->input("trans_amt");
         $product->hamali = $request->input("hamali");
+        $product->driver_name = $request->input("driver_name");
+        $product->vehicle_no = $request->input("vehicle_no");
         $product->cgst = $request->input("cgst");
         $product->cgst_amt = $request->input("cgst_amt");
         $product->sgat = $request->input("sgat");
