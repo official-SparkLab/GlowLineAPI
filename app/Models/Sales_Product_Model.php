@@ -18,7 +18,7 @@ class Sales_Product_Model extends Model
         "p_id",
         "prod_name",
         "hsn",
-        "weight",
+        "total_weight",
         "qty",
         "rate",
         "total",

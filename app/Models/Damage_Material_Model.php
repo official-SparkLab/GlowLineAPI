@@ -13,11 +13,11 @@ class Damage_Material_Model extends Model
     protected $primaryKey = "dam_id";
 
     protected $fillable = [
-        "prod_id",
+        "p_id",
         "prod_name",
         "date",
         "hsn",
-        "qty",
+        "total_weight",
         "type",
         "status"
     ];
