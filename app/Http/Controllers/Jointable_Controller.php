@@ -29,13 +29,13 @@ class Jointable_Controller extends Controller
     public function CustomerLedger($cust_id, $date1, $date2)
     {
         $query = DB::select("
-                SELECT date, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
+                SELECT date, 'Sales Outside' As sales_id, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
                 FROM tbl_sales_details 
                 where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, cust_name, 'Receipt', paid_amount, '0' 
+                SELECT date,cust_name, sale_pay_id, 'Receipt', paid_amount, '0' 
                 FROM tbl_sale_payable 
                 where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
 
@@ -48,13 +48,13 @@ class Jointable_Controller extends Controller
 
     public function supplierLedger($sup_id, $date1, $date2)
     {
-        $query = DB::select("SELECT date, invoice_no, 'Purchase' AS sup_name, total, '0' As sub_total
+        $query = DB::select("SELECT date,'Purchase Inside' As rawp_id, invoice_no, 'Purchase' AS sup_name, total, '0' As sub_total
         FROM tbl_raw_purchase
         where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'
 
         UNION ALL
 
-        SELECT date, sup_name, 'Receipt', '0', paid_amount 
+        SELECT date, sup_name,pur_pay_id 'Receipt', '0', paid_amount 
         FROM tbl_purchase_payble
         where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
 
@@ -112,31 +112,31 @@ class Jointable_Controller extends Controller
     public function GeneralLedger($date1, $date2)
     {
         $post = DB::select("
-                SELECT date, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
+                SELECT date,'Sales Outside' As sales_id, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
                 FROM tbl_sales_details 
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, cust_name, 'Receipt', paid_amount, '0' 
+                SELECT date, cust_name, sale_pay_id, 'Receipt', paid_amount, '0' 
                 FROM tbl_sale_payable 
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', total, '0' 
+                SELECT date,'Purchase Inside' As rawp_id, invoice_no, 'Purchase', total, '0' 
                 FROM tbl_raw_purchase
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, sup_name, 'Receipt', '0', paid_amount 
+                SELECT date, sup_name,pur_pay_id, 'Receipt', '0', paid_amount 
                 FROM tbl_purchase_payble
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, exp_name, 'Expense', '0', exp_amt 
+                SELECT date, exp_name,exp_id, 'Expense', '0', exp_amt 
                 FROM tbl_expenses
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
