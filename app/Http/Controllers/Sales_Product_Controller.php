@@ -21,7 +21,7 @@ class Sales_Product_Controller extends Controller
          $product->p_id = $request->input("p_id");
          $product->prod_name = $request->input("prod_name");
          $product->hsn = $request->input("hsn");
-         $product->weight = $request->input("weight");
+         $product->total_weight = $request->input("total_weight");
          $product->qty = $request->input("qty");
          $product->rate = $request->input("rate");
          $product->total = $request->input("total");

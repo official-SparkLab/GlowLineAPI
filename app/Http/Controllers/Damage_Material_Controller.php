@@ -14,11 +14,11 @@ class Damage_Material_Controller extends Controller
     public function addProduct (Request $request)
     {
         $product = new Damage_Material_Model();
-        $product->prod_id = $request->input("prod_id");
+        $product->p_id = $request->input("p_id");
         $product->prod_name = $request->input("prod_name");
         $product->date = $request->input("date");
         $product->hsn = $request->input("hsn");
-        $product->qty = $request->input("qty");
+        $product->total_weight = $request->input("total_weight");
         $product->type = $request->input("type");
 
        

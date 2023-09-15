@@ -18,7 +18,7 @@ class Purchase_Product_Model extends Model
         "p_date",
         "p_id",
         "prod_name",
-        "weight",
+        "total_weight",
         "qty",
         "rate",
         "total",
