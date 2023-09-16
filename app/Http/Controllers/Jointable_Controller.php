@@ -72,7 +72,7 @@ class Jointable_Controller extends Controller
             ->select(
                 'tbl_sales_product.hsn',
                 'tbl_sales_product.qty',
-                'tbl_sales_product.weight',
+                'tbl_sales_product.total_weight',
                 'tbl_sales_product.rate',
                 'tbl_sales_product.total',
                 'tbl_sales_product.p_id',
@@ -93,7 +93,7 @@ class Jointable_Controller extends Controller
             ->select(
                 'tbl_raw_purchase_product.hsn',
                 'tbl_raw_purchase_product.qty',
-                'tbl_raw_purchase_product.weight',
+                'tbl_raw_purchase_product.total_weight',
                 'tbl_raw_purchase_product.rate',
                 'tbl_raw_purchase_product.total',
                 'tbl_raw_purchase_product.p_id',
