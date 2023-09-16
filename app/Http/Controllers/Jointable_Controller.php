@@ -31,13 +31,13 @@ class Jointable_Controller extends Controller
         $query = DB::select("
                 SELECT date, 'Sales Outside' As sales_id, invoice_no, 'Sales' As cust_name, 0 AS sub_total,total
                 FROM tbl_sales_details 
-                where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'
+                where cust_id = '" . $cust_id . "' and date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
                 SELECT date,cust_name, sale_pay_id, 'Receipt', paid_amount, '0' 
                 FROM tbl_sale_payable 
-                where cust_id = '".$cust_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
+                where cust_id = '" . $cust_id . "' and date between '" . $date1 . "' and '" . $date2 . "'");
 
         return response()->json([
             "data" => $query
@@ -50,13 +50,13 @@ class Jointable_Controller extends Controller
     {
         $query = DB::select("SELECT date,'Purchase Inside' As rawp_id, invoice_no, 'Purchase' AS sup_name, total, '0' As sub_total
         FROM tbl_raw_purchase
-        where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'
+        where sup_id = '" . $sup_id . "' and date between '" . $date1 . "' and '" . $date2 . "'
 
         UNION ALL
 
         SELECT date, sup_name,pur_pay_id 'Receipt', '0', paid_amount 
         FROM tbl_purchase_payble
-        where sup_id = '".$sup_id."' and date between '" . $date1 . "' and '" . $date2 . "'");
+        where sup_id = '" . $sup_id . "' and date between '" . $date1 . "' and '" . $date2 . "'");
 
         return response()->json([
             "data" => $query
@@ -152,16 +152,206 @@ class Jointable_Controller extends Controller
         ]);
     }
 
-    public function TotalWeightOfOrdersByCustomer($cust_id,$date1,$date2)
+    public function TotalWeightOfOrdersByCustomer($cust_id, $date1, $date2)
     {
         $total = DB::select("
         SELECT SUM(tbl_sales_product.weight) AS total
         FROM tbl_sales_details
         LEFT JOIN tbl_sales_product ON tbl_sales_details.invoice_no = tbl_sales_product.invoice_no
-        WHERE tbl_sales_details.cust_id = '".$cust_id."'
+        WHERE tbl_sales_details.cust_id = '" . $cust_id . "'
         AND tbl_sales_details.date BETWEEN '" . $date1 . "' and '" . $date2 . "';
         ");
 
-        return response()->json(["data"=>$total]);
+        return response()->json(["data" => $total]);
+    }
+
+
+    public function goodsStock()
+    {
+        $combinedData = DB::select("
+        SELECT 
+            prod_name,
+            SUM(SalesWeight) AS TotalSalesWeight,
+            SUM(DamageWeight) AS TotalDamageWeight,
+            SUM(ProductionWeight) AS TotalProductionWeight
+        FROM (
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                SUM(tbl_sales_product.total_weight) AS SalesWeight,
+                0 AS DamageWeight,
+                0 AS ProductionWeight
+            FROM 
+                tbl_sales_product
+            LEFT JOIN
+                tbl_all_products ON tbl_sales_product.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_sales_product.type = 'Goods'
+            GROUP BY tbl_all_products.prod_name
+    
+            UNION ALL
+    
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS SalesWeight,
+                SUM(tbl_damage_material.total_weight) AS DamageWeight,
+                0 AS ProductionWeight
+            FROM 
+                tbl_damage_material
+            LEFT JOIN
+                tbl_all_products ON tbl_damage_material.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_damage_material.type = 'Goods'
+            GROUP BY tbl_all_products.prod_name
+    
+            UNION ALL
+    
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS SalesWeight,
+                0 AS DamageWeight,
+                SUM(tbl_goods_usage.total_weight) AS ProductionWeight
+            FROM 
+                tbl_goods_usage
+            LEFT JOIN
+                tbl_all_products ON tbl_goods_usage.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_goods_usage.type = 'Goods'
+            GROUP BY tbl_all_products.prod_name
+        ) AS CombinedData
+        GROUP BY prod_name;
+    ");
+
+    return response()->json(["data"=>$combinedData]);
+    
+    
+    }
+    
+
+
+    public function retailStock()
+    {
+        $combinedData = DB::select(
+            "
+            SELECT 
+            prod_name,
+            SUM(SalesWeight) AS TotalSalesWeight,
+            SUM(DamageWeight) AS TotalDamageWeight,
+            SUM(PurchaseWeight) AS TotalPurchaseWeight
+        FROM (
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                SUM(tbl_sales_product.total_weight) AS SalesWeight,
+                0 AS DamageWeight,
+                0 AS PurchaseWeight
+            FROM 
+                tbl_sales_product
+            LEFT JOIN
+                tbl_all_products ON tbl_sales_product.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_sales_product.type = 'Retail'
+            GROUP BY tbl_all_products.prod_name
+    
+            UNION ALL
+    
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS SalesWeight,
+                SUM(tbl_damage_material.total_weight) AS DamageWeight,
+                0 AS PurchaseWeight
+            FROM 
+                tbl_damage_material
+            LEFT JOIN
+                tbl_all_products ON tbl_damage_material.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_damage_material.type = 'Retail'
+            GROUP BY tbl_all_products.prod_name
+    
+            UNION ALL
+    
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS SalesWeight,
+                0 AS DamageWeight,
+                SUM(tbl_raw_purchase_product.total_weight) AS PurchaseWeight
+            FROM 
+                tbl_raw_purchase_product
+            LEFT JOIN
+                tbl_all_products ON tbl_raw_purchase_product.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_raw_purchase_product.type = 'Retail'
+            GROUP BY tbl_all_products.prod_name
+        ) AS CombinedData
+        GROUP BY prod_name;
+            "
+        );
+
+    return response()->json(["data"=>$combinedData]);
+
+    }
+
+
+    public function rawStock()
+    {
+       $combineData = DB::select(
+       "
+       SELECT 
+            prod_name,
+            SUM(PurchaseWeight) AS TotalPurchaseWeight,
+            SUM(DamageWeight) AS TotalDamageWeight,
+            SUM(UsageWeight) AS TotalUsageWeight
+        FROM (
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                SUM(tbl_raw_purchase_product.total_weight) AS PurchaseWeight,
+                0 AS DamageWeight,
+                0 AS UsageWeight
+            FROM 
+            tbl_raw_purchase_product
+            LEFT JOIN
+                tbl_all_products ON tbl_raw_purchase_product.p_id = tbl_all_products.p_id
+            WHERE 
+            tbl_raw_purchase_product.type = 'Raw'
+            GROUP BY tbl_all_products.prod_name
+    
+
+            UNION ALL
+    
+
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS PurchaseWeight,
+                SUM(tbl_damage_material.total_weight) AS DamageWeight,
+                0 AS UsageWeight
+            FROM 
+                tbl_damage_material
+            LEFT JOIN
+                tbl_all_products ON tbl_damage_material.p_id = tbl_all_products.p_id
+            WHERE 
+                tbl_damage_material.type = 'Raw'
+            GROUP BY tbl_all_products.prod_name
+    
+
+            UNION ALL
+
+    
+            SELECT 
+                tbl_all_products.prod_name AS prod_name,
+                0 AS PurchaseWeight,
+                0 AS DamageWeight,
+                SUM(tbl_raw_usage.total_weight) AS UsageWeight
+            FROM 
+            tbl_raw_usage
+            LEFT JOIN
+                tbl_all_products ON tbl_raw_usage.p_id = tbl_all_products.p_id
+            WHERE 
+        tbl_raw_usage.type = 'Raw'
+            GROUP BY tbl_all_products.prod_name
+        ) AS CombinedData
+        GROUP BY prod_name;
+       "
+       );
+
+    return response()->json(["data"=>$combineData]);
+
     }
 }
