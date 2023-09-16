@@ -327,5 +327,13 @@ Route::get('/fetchPProduct/{invoice_no}',[Jointable_Controller::class,'PurchaseP
 Route::get('/fetchPurchaseWeight/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'TotalWeightOfOrdersByCustomer']);
 
 
+// Stock Api
+
+Route::get('/goodsStock',[Jointable_Controller::class,'goodsStock']);
+
+Route::get('/rawStock',[Jointable_Controller::class,'rawStock']);
+
+
+Route::get('/retailStock',[Jointable_Controller::class,'retailStock']);
 
 
