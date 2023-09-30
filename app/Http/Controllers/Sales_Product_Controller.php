@@ -85,31 +85,28 @@ class Sales_Product_Controller extends Controller
     }
  
     public function updateSaleProduct(Request $request, $sales_prod_id, $invoice_no)
-    {
-        $product = DB::table('tbl_sales_product')
-        ->where('sales_prod_id', '=', $sales_prod_id)
-        ->where('invoice_no', '=', $invoice_no)
+{
+    $product = Sales_Product_Model::where('sales_prod_id', $sales_prod_id)
+        ->where('invoice_no', $invoice_no)
         ->first();
 
-        if(!$product)
-        {
-            return response()->json(["message" => "Product not found"]);
-        }
-        else {
-           
-            $product->s_date = $request->input("s_date");
-            $product->p_id = $request->input("p_id");
-            $product->prod_name = $request->input("prod_name");
-            $product->hsn = $request->input("hsn");
-            $product->total_weight = $request->input("total_weight");
-            $product->qty = $request->input("qty");
-            $product->rate = $request->input("rate");
-            $product->total = $request->input("total");
-            $product->type = $request->input("type");
-            $product->save();
+    if (!$product) {
+        return response()->json(["message" => "Product not found"], 404);
+    } else {
+        $product->s_date = $request->input("s_date");
+        $product->p_id = $request->input("p_id");
+        $product->prod_name = $request->input("prod_name");
+        $product->hsn = $request->input("hsn");
+        $product->total_weight = $request->input("total_weight");
+        $product->qty = $request->input("qty");
+        $product->rate = $request->input("rate");
+        $product->total = $request->input("total");
+        $product->type = $request->input("type");
+        $product->save();
 
-            return response()->json(["message" => "Data updated successfully","status" => "success"],201);
-        }
+        return response()->json(["message" => "Data updated successfully", "status" => "success"], 201);
     }
+}
+
     
 }
