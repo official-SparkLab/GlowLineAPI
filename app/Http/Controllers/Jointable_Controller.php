@@ -76,7 +76,11 @@ class Jointable_Controller extends Controller
                 'tbl_sales_product.rate',
                 'tbl_sales_product.total',
                 'tbl_sales_product.p_id',
-                'tbl_all_products.prod_name'
+                'tbl_all_products.prod_name',
+                'tbl_all_products.sales_prod_id',
+                'tbl_all_products.type'
+
+
             )
             ->leftJoin('tbl_all_products', 'tbl_sales_product.p_id', '=', 'tbl_all_products.p_id')
             ->where('tbl_sales_product.invoice_no', $invoice_no)
