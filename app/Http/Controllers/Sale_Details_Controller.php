@@ -98,4 +98,47 @@ class Sale_Details_Controller extends Controller
             return response()->json(["error" => "An error occurred"], 500);
         }
     }
+
+    // Update Sale Details
+
+    public function updateSaleDetails(Request $request,$date,$invoice_no)
+    {
+        $saleDetails = DB::table('tbl_sales_details')
+        ->where('date', '=', $date)
+        ->where('invoice_no', '=', $invoice_no)
+        ->first();
+
+        if(!$saleDetails)
+        {
+            return response()->json(["message" => "No data found"]);
+        }
+        else {
+        $saleDetails->invoice_no = $request->input("invoice_no");
+        $saleDetails->date = $request->input("date");
+        $saleDetails->cust_id = $request->input("cust_id");
+        $saleDetails->cust_name = $request->input("cust_name");
+        $saleDetails->mobile = $request->input("mobile");
+        $saleDetails->gstin = $request->input("gstin");
+        $saleDetails->address = $request->input("address");
+        $saleDetails->place_of_supply = $request->input("place_of_supply");
+        $saleDetails->dispatch_no = $request->input("dispatch_no");
+        $saleDetails->destination = $request->input("destination");
+        $saleDetails->trans_amt = $request->input("trans_amt");
+        $saleDetails->hamali = $request->input("hamali");
+        $saleDetails->driver_name = $request->input("driver_name");
+        $saleDetails->vehicle_no = $request->input("vehicle_no");
+        $saleDetails->cgst = $request->input("cgst");
+        $saleDetails->cgst_amt = $request->input("cgst_amt");
+        $saleDetails->sgat = $request->input("sgat");
+        $saleDetails->sgat_amt = $request->input("sgat_amt");
+        $saleDetails->igst = $request->input("igst");
+        $saleDetails->igst_amt = $request->input("igst_amt");
+        $saleDetails->sub_total = $request->input("sub_total");
+        $saleDetails->total = $request->input("total");
+
+        $saleDetails->save();
+
+        return response()->json(["message" => "Data updated successfully", "status" => "success"], 201);
+        }
+    }
 }
