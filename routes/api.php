@@ -200,6 +200,9 @@ Route::get('/fetchSale',[Sale_Details_Controller::class,'fetchAllProducts']);
 Route::get('/fetchSale/{date}/{invoice_no}',[Sale_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
+Route::put('/updateSale/{date}/{invoice_no}',[Sale_Details_Controller::class,'updateSaleDetails'] )
+    ->where('invoice_no', '.*');
+
 Route::get('/fetchSaleById/{cust_id}',[Sale_Details_Controller::class,'fetchByCustId']);
 
 
@@ -211,6 +214,9 @@ Route::post('/addSaleProduct',[Sales_Product_Controller::class,'addProduct']);
 Route::get('/fetchSaleProduct',[Sales_Product_Controller::class,'fetchAllProducts']);
 
 Route::get('/fetchSaleProduct/{s_date}/{invoice_no}',[Sales_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
+
+Route::put('/updateSaleProduct/{sales_prod_id}/{invoice_no}',[Sales_Product_Controller::class,'updateSaleProduct']) ->where('invoice_no', '.*');
+
 
 Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'deleteSaleProduct']);
 
