@@ -77,8 +77,8 @@ class Jointable_Controller extends Controller
                 'tbl_sales_product.total',
                 'tbl_sales_product.p_id',
                 'tbl_all_products.prod_name',
-                'tbl_all_products.sales_prod_id',
-                'tbl_all_products.type'
+                'tbl_sales_product.sales_prod_id',
+                'tbl_sales_product.type'
 
 
             )
