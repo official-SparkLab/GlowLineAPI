@@ -23,6 +23,7 @@ use App\Http\Controllers\Sale_Details_Controller;
 use App\Http\Controllers\Sale_Payable_Controller;
 use App\Http\Controllers\Sales_Product_Controller;
 use App\Http\Controllers\Supplier_Controller;
+use App\Http\Controllers\UserController;
 use App\Models\Sales_Product_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -341,5 +342,20 @@ Route::get('/rawStock',[Jointable_Controller::class,'rawStock']);
 
 
 Route::get('/retailStock',[Jointable_Controller::class,'retailStock']);
+
+
+//User Api
+
+Route::post('/addUser',[UserController::class,'createUser']);
+
+Route::get('/fetchUser',[UserController::class,'fetchUsers']);
+
+Route::put('/updateUser/{user_id}',[UserController::class,'updateUser']);
+
+Route::delete('/deleteuser/{user_id}',[UserController::class,'deleteUserData']); 
+
+Route::get('/userById/{user_id}',[UserController::class,'fetchDataById']);
+
+Route::post('/userLogin',[UserController::class,'login']);
 
 
