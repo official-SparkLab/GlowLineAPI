@@ -60,4 +60,34 @@ class Purchase_Payable_Controller extends Controller
              return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
          }
      }
+
+
+
+     public function updatePurchasePayable(Request $request, $pur_pay_id)
+     {
+         try {
+             $product = Purchase_Payable_Model::where('pur_pay_id', $pur_pay_id)->first();
+     
+             if (!$product) {
+                 return response()->json(['Message' => 'Product not found']);
+             }
+     
+             $product->update([
+                $product->sup_id = $request->input("sup_id"),
+                $product->sup_name = $request->input("sup_name"),
+                $product->date = $request->input("date"),
+                $product->mobile_no = $request->input("mobile_no"),
+                $product->gstin = $request->input("gstin"),
+                $product->pending_amt = $request->input("pending_amt"),
+                $product->paid_amount = $request->input("paid_amount"),
+                $product->available_bal = $request->input("available_bal"),
+                $product->payment_mode = $request->input("payment_mode"),
+                $product->trx_no = $request->input("trx_no"),
+             ]);
+     
+             return response()->json(['Message' => 'Record updated successfully']);
+         } catch (\Exception $e) {
+             return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+         }
+     }
 }

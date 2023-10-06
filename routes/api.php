@@ -298,6 +298,9 @@ Route::delete('/deleteMaterialDamage/{dam_id}',[Damage_Material_Controller::clas
 
 Route::post('/addPurchasePayable',[Purchase_Payable_Controller::class,'addPayable']);
 
+Route::put('/addPurchasePayable/{pur_pay_id}',[Purchase_Payable_Controller::class,'updatePurchasePayable']);
+
+
 Route::get('/fetchPurchasePayable',[Purchase_Payable_Controller::class,'fetchAllPayable']);
 
 Route::delete('/deletePurchasePayable/{pur_pay_id}',[Purchase_Payable_Controller::class,'deletePurchasePayable']);
@@ -306,6 +309,9 @@ Route::delete('/deletePurchasePayable/{pur_pay_id}',[Purchase_Payable_Controller
 // Sale Payble
 
 Route::post('/addSalePayable',[Sale_Payable_Controller::class,'addPayable']);
+
+Route::put('/addSalePayable/{sale_pay_id}',[Sale_Payable_Controller::class,'updateSalePayable']);
+
 
 Route::get('/fethSalePayable',[Sale_Payable_Controller::class,'fetchAllPayable']);
 
