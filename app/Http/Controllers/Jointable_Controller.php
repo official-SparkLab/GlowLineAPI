@@ -70,6 +70,7 @@ class Jointable_Controller extends Controller
     {
         $product = DB::table('tbl_sales_product')
             ->select(
+                'tbl_sales_product.sp_id',
                 'tbl_sales_product.hsn',
                 'tbl_sales_product.qty',
                 'tbl_sales_product.total_weight',
