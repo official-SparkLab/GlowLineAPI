@@ -103,9 +103,9 @@ class Sale_Details_Controller extends Controller
 
     public function updateSaleDetails(Request $request,$date,$invoice_no)
     {
-        $saleDetails = DB::table('tbl_sales_details')
-        ->where('date', '=', $date)
-        ->where('invoice_no', '=', $invoice_no)
+
+        $saleDetails = Sale_Details_Model::where('date', $date)
+        ->where('invoice_no', $invoice_no)
         ->first();
 
         if(!$saleDetails)
