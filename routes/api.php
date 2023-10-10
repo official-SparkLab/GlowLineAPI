@@ -252,6 +252,8 @@ Route::get('/fetchPurchase',[Purchase_Details_Controller::class,'fetchAllProduct
 Route::get('/fetchPurchase/{date}/{invoice_no}',[Purchase_Details_Controller::class,'fetchById'] )
     ->where('invoice_no', '.*');
 
+Route::put('/updatePurchase/{date}/{invoice_no}',[Purchase_Details_Controller::class,'updatePurchaseDetails'] )
+    ->where('invoice_no', '.*');
 
 Route::get('/fetchPurchaseById/{sup_id}',[Purchase_Details_Controller::class,'fetchBySupId']);
 
@@ -264,6 +266,9 @@ Route::post('/addPurchaseProduct',[Purchase_Product_Controller::class,'addProduc
 Route::get('/fetchPurchaseProduct',[Purchase_Product_Controller::class,'fetchAllProducts']);
 
 Route::get('/fetchPurchaseProduct/{p_date}/{invoice_no}',[Purchase_Product_Controller::class,'fetchById']) ->where('invoice_no', '.*');
+
+Route::put('/updatePurchaseProduct/{pur_prod_id}/{invoice_no}',[Purchase_Product_Controller::class,'updatePurchaseProduct']) ->where('invoice_no', '.*');
+
 
 Route::delete('/deletePurchaseProduct/{row_p_id}',[Purchase_Product_Controller::class,'deleteSaleProduct']);
 

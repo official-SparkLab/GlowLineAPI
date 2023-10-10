@@ -98,5 +98,38 @@ class Purchase_Details_Controller extends Controller
         }
      }
    
+
+     public function updatePurchaseDetails(Request $request, $date, $invoice_no)
+     {
+         $affectedRows = DB::table('tbl_raw_purchase')
+             ->where('date', '=', $date)
+             ->where('invoice_no', '=', $invoice_no)
+             ->update([
+                 'sup_id' => $request->input("sup_id"),
+                 'sup_name' => $request->input("sup_name"),
+                 'mobile_no' => $request->input("mobile_no"),
+                 'gstin' => $request->input("gstin"),
+                 'address' => $request->input("address"),
+                 'place_of_supply' => $request->input("place_of_supply"),
+                 'dispatch_no' => $request->input("dispatch_no"),
+                 'destination' => $request->input("destination"),
+                 'trans_amt' => $request->input("trans_amt"),
+                 'hamali' => $request->input("hamali"),
+                 'cgst' => $request->input("cgst"),
+                 'cgst_amt' => $request->input("cgst_amt"),
+                 'sgat' => $request->input("sgat"),
+                 'sgat_amt' => $request->input("sgat_amt"),
+                 'igst' => $request->input("igst"),
+                 'igst_amt' => $request->input("igst_amt"),
+                 'sub_total' => $request->input("sub_total"),
+                 'total' => $request->input("total"),
+             ]);
+     
+         if ($affectedRows === 0) {
+             return response()->json(["message" => "No data found"]);
+         } else {
+             return response()->json(["message" => "Data updated successfully", "status" => "success"], 201);
+         }
+     }
  
 }

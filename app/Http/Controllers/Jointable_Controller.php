@@ -97,11 +97,14 @@ class Jointable_Controller extends Controller
         $product = DB::table('tbl_raw_purchase_product')
             ->select(
                 'tbl_raw_purchase_product.hsn',
+                'tbl_raw_purchase_product.row_p_id',
+                'tbl_raw_purchase_product.pur_prod_id',
                 'tbl_raw_purchase_product.qty',
                 'tbl_raw_purchase_product.total_weight',
                 'tbl_raw_purchase_product.rate',
                 'tbl_raw_purchase_product.total',
                 'tbl_raw_purchase_product.p_id',
+                'tbl_raw_purchase_product.type',
                 'tbl_all_products.prod_name'
             )
             ->leftJoin('tbl_all_products', 'tbl_raw_purchase_product.p_id', '=', 'tbl_all_products.p_id')
