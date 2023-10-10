@@ -84,4 +84,29 @@ class Purchase_Product_Controller extends Controller
             return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
         }
     }
+
+
+    public function updatePurchaseProduct(Request $request, $pur_prod_id, $invoice_no)
+    {
+        $product = Purchase_Product_Model::where('pur_prod_id', $pur_prod_id)
+            ->where('invoice_no', $invoice_no)
+            ->first();
+    
+        if (!$product) {
+            return response()->json(["message" => "Product not found"], 404);
+        } else {
+            $product->p_date = $request->input("p_date");
+            $product->p_id = $request->input("p_id");
+            $product->prod_name = $request->input("prod_name");
+            $product->total_weight = $request->input("total_weight");
+            $product->qty = $request->input("qty");
+            $product->rate = $request->input("rate");
+            $product->total = $request->input("total");
+            $product->hsn = $request->input("hsn");
+            $product->type = $request->input("type");
+            $product->save();
+    
+            return response()->json(["message" => "Data updated successfully", "status" => "success"], 201);
+        }
+    }
 }
