@@ -340,7 +340,7 @@ Route::get('/generalLedger/{date1}/{date2}',[Jointable_Controller::class,'Genera
 
 Route::get('/fetchSProduct/{date}/{invoice_no}',[Jointable_Controller::class,'SalesProduct']) ->where('invoice_no', '.*');
 
-Route::get('/fetchPProduct/{invoice_no}',[Jointable_Controller::class,'PurchaseProduct']) ->where('invoice_no', '.*');
+Route::get('/fetchPProduct/{date}/{invoice_no}',[Jointable_Controller::class,'PurchaseProduct']) ->where('invoice_no', '.*');
 
 Route::get('/fetchPurchaseWeight/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'TotalWeightOfOrdersByCustomer']);
 
