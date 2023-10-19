@@ -54,7 +54,7 @@ class Jointable_Controller extends Controller
 
         UNION ALL
 
-        SELECT date, sup_name,pur_pay_id 'Receipt', '0', paid_amount 
+        SELECT date, sup_name,pur_pay_id, 'Receipt', '0', paid_amount 
         FROM tbl_purchase_payble
         where sup_id = '" . $sup_id . "' and date between '" . $date1 . "' and '" . $date2 . "'");
 

@@ -19,6 +19,11 @@ class Quatation_Details_Controller extends Controller
  
          $product->voucher_no = $request->input("voucher_no");
          $product->date = $request->input("date");
+         $product->cust_id = $request->input("cust_id");
+         $product->cust_name = $request->input("cust_name");
+         $product->mobile = $request->input("mobile");
+         $product->gstin = $request->input("gstin");
+         $product->address = $request->input("address");
          $product->order_no = $request->input("order_no");
          $product->destination = $request->input("destination");
          $product->trans_amt = $request->input("trans_amt");
@@ -50,6 +55,20 @@ class Quatation_Details_Controller extends Controller
          }
      }
  
+//Delete quatation
+     public function deleteQuatation($q_id)
+     {
+         $BankDetails = Quatation_Details_Model::find($q_id);
+ 
+     if ($BankDetails) {
+         $BankDetails->status = 0;
+         $BankDetails->save();
+ 
+         return response()->json(["message" => "Record deleted successfully"], 200);
+     } else {
+         return response()->json(["message" => "Record not found"], 404);
+     }
+     }
  
      // Fetch product by Id
  

@@ -228,6 +228,9 @@ Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'del
 
 Route::post('/addQuatation',[Quatation_Details_Controller::class,'addSaleEntry']);
 
+Route::put('/deleteQuatation',[Quatation_Details_Controller::class,'deleteQuatation']);
+
+
 Route::get('/fetchQuatation',[Quatation_Details_Controller::class,'fetchAllProducts']);
 Route::get('/fetchQuatation/{voucher_no}',[Quatation_Details_Controller::class,'fetchById'] )
     ->where('voucher_no', '.*');
