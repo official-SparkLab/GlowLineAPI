@@ -228,7 +228,7 @@ Route::delete('/deleteSaleProduct/{sp_id}',[Sales_Product_Controller::class,'del
 
 Route::post('/addQuatation',[Quatation_Details_Controller::class,'addSaleEntry']);
 
-Route::put('/deleteQuatation',[Quatation_Details_Controller::class,'deleteQuatation']);
+Route::put('/deleteQuatation/{q_id}',[Quatation_Details_Controller::class,'deleteQuatation']);
 
 
 Route::get('/fetchQuatation',[Quatation_Details_Controller::class,'fetchAllProducts']);
