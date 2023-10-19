@@ -11,11 +11,16 @@ class Quatation_Details_Model extends Model
 
     protected $table  = "tbl_quatation_details";
 
-    protected $primaryKey = "q_id ";
+    protected $primaryKey = "q_id";
 
     protected $fillable = [
         "voucher_no",
         "date",
+        "cust_id",
+        "cust_name",
+        "mobile",
+        "gstin",
+        "address",
         "order_no",
         "destination",
         "trans_amt",
