@@ -17,6 +17,7 @@ class Sales_Product_Controller extends Controller
          $product = new Sales_Product_Model;
          $product->sales_prod_id = $request->input("sales_prod_id");
          $product->invoice_no = $request->input("invoice_no");
+         $product->cust_id = $request->input("cust_id");
          $product->s_date = $request->input("s_date");
          $product->p_id = $request->input("p_id");
          $product->prod_name = $request->input("prod_name");
