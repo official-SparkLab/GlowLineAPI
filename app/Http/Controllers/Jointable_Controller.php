@@ -165,10 +165,10 @@ class Jointable_Controller extends Controller
     {
         $total = DB::select("
         SELECT SUM(tbl_sales_product.total_weight) AS total
-        FROM tbl_sales_details
-        LEFT JOIN tbl_sales_product ON tbl_sales_details.invoice_no = tbl_sales_product.invoice_no
-        WHERE tbl_sales_details.cust_id = '" . $cust_id . "'
-        AND tbl_sales_details.date BETWEEN '" . $date1 . "' and '" . $date2 . "';
+        FROM tbl_sales_product
+        LEFT JOIN tbl_customer_details ON tbl_sales_product.cust_id = tbl_customer_details.cust_id
+        WHERE tbl_customer_details.cust_id = '" . $cust_id . "'
+        AND tbl_sales_product.s_date BETWEEN '" . $date1 . "' and '" . $date2 . "';
         ");
 
         return response()->json(["data" => $total]);
