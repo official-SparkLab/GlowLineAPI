@@ -169,9 +169,7 @@ class Jointable_Controller extends Controller
         LEFT JOIN tbl_customer_details ON tbl_sales_product.cust_id = tbl_customer_details.cust_id
         WHERE tbl_customer_details.cust_id = '" . $cust_id . "'
         AND tbl_sales_product.s_date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
-        AND tbl_sales_product.hsn = '39111010';
-        ;
-        ");
+        AND tbl_sales_product.hsn = '39111010'; ");
 
         return response()->json(["data" => $total]);
     }
