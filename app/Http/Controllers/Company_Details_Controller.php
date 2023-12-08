@@ -49,7 +49,7 @@ class Company_Details_Controller extends Controller
   
       public function fetchById($com_id)
       {
-          $Company = DB::select("select * from tbl_company_details where com_id = $com_id and status = 1");
+          $Company = DB::select("select * from tbl_company_details where com_id = $com_id");
   
           if ($Company) {
               return response()->json(["data" => $Company], 200);

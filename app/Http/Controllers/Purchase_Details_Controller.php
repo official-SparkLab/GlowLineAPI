@@ -37,6 +37,8 @@ class Purchase_Details_Controller extends Controller
          $product->igst_amt = $request->input("igst_amt");
          $product->sub_total = $request->input("sub_total");
          $product->total = $request->input("total");
+        $product->com_id = $request->input("com_id");
+
 
          $product->save();
  

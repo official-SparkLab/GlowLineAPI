@@ -36,6 +36,7 @@ class Sale_Details_Model extends Model
         "igst_amt",
         "sub_total",
         "total",
+        "com_id",
         "status"
     ];
 
