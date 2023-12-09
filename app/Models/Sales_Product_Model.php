@@ -14,6 +14,7 @@ class Sales_Product_Model extends Model
     protected $fillable = [
         "sales_prod_id",
         "invoice_no",
+        "cust_id",
         "s_date",
         "p_id",
         "prod_name",
