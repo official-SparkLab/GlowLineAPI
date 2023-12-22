@@ -25,6 +25,43 @@ class Jointable_Controller extends Controller
         return response()->json(["totalAmt" => $totalAmt - $totalPaidamt]);
     }
 
+    public function allCustomerPendingAmount()
+    {
+        $pendingAmounts = DB::select("
+            SELECT 
+                c.cust_id,
+                c.cust_name,
+                c.mobile,
+                c.gstin,
+                COALESCE(sd.total, 0) - COALESCE(sp.paid_amount, 0) as pendingAmount
+            FROM 
+                tbl_customer_details c
+            LEFT JOIN (
+                SELECT cust_id, COALESCE(SUM(total), 0) as total
+                FROM tbl_sales_details
+                GROUP BY cust_id
+            ) sd ON c.cust_id = sd.cust_id
+            LEFT JOIN (
+                SELECT cust_id, COALESCE(SUM(paid_amount), 0) as paid_amount
+                FROM tbl_sale_payable
+                GROUP BY cust_id
+            ) sp ON c.cust_id = sp.cust_id
+        ");
+    
+        $result = [];
+        foreach ($pendingAmounts as $pendingAmount) {
+            $result[$pendingAmount->cust_id] = [
+                'cust_name' => $pendingAmount->cust_name,
+                'mobile' => $pendingAmount->mobile,
+                'gstin' => $pendingAmount->gstin,
+                'pendingAmount' => $pendingAmount->pendingAmount,
+            ];
+        }
+    
+        return response()->json(["pendingAmounts" => $result]);
+    }
+    
+    
 
     public function CustomerLedger($cust_id, $date1, $date2)
     {

@@ -333,6 +333,9 @@ Route::get('/payableAmt/{sup_id}',[Jointable_Controller::class,'fetchAmountForPu
 
 Route::get('/salePayableAmt/{cust_id}',[Jointable_Controller::class,'fetchAmountForSalePayable']);
 
+Route::get('/customerPendingAmount',[Jointable_Controller::class,'allCustomerPendingAmount']);
+
+
 Route::get('/customerLedger/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'CustomerLedger']);
 
 Route::get('/supplierLedger/{sup_id}/{date1}/{date2}',[Jointable_Controller::class,'supplierLedger']);
