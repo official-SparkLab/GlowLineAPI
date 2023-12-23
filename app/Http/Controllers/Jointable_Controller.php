@@ -48,17 +48,9 @@ class Jointable_Controller extends Controller
             ) sp ON c.cust_id = sp.cust_id
         ");
     
-        $result = [];
-        foreach ($pendingAmounts as $pendingAmount) {
-            $result[$pendingAmount->cust_id] = [
-                'cust_name' => $pendingAmount->cust_name,
-                'mobile' => $pendingAmount->mobile,
-                'gstin' => $pendingAmount->gstin,
-                'pendingAmount' => $pendingAmount->pendingAmount,
-            ];
-        }
-    
-        return response()->json(["pendingAmounts" => $result]);
+        return response()->json([
+            "data" => $pendingAmounts
+        ]);
     }
     
     
