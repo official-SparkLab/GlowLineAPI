@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Bank_Details_Controller extends Controller
 {
    
-    // Add Employee BankDetails Method
+    // Add Employee BankDetails Method 
 
     public function addBankDetails (Request $request)
     {

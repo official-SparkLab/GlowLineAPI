@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class All_Products_Controller extends Controller
 {
-    //
+    // 
      // Add Products Method
 
      public function addProduct (Request $request)
