@@ -351,6 +351,10 @@ Route::get('/fetchPProduct/{date}/{invoice_no}',[Jointable_Controller::class,'Pu
 Route::get('/fetchPurchaseWeight/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'TotalWeightOfOrdersByCustomer']);
 
 
+Route::delete('/deleteSalesData/{invoice_no}', [Jointable_Controller::class, 'deleteSalesData']);
+
+
+
 // Stock Api
 
 Route::get('/goodsStock',[Jointable_Controller::class,'goodsStock']);
