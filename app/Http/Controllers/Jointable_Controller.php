@@ -393,8 +393,9 @@ class Jointable_Controller extends Controller
 
     }
 
-    
+
 // ........................<Delete All Sale Data>.................................
+
 
     public function deleteSalesData($invoice_no)
     {
