@@ -206,6 +206,7 @@ Route::put('/updateSale/{date}/{invoice_no}',[Sale_Details_Controller::class,'up
 
 Route::get('/fetchSaleById/{cust_id}',[Sale_Details_Controller::class,'fetchByCustId']);
 
+Route::delete('/deleteSalesData/{sales_id}', [Sale_Details_Controller::class, 'deleteSaleDetails']);
 
 
 // Sale Product Api
@@ -351,7 +352,6 @@ Route::get('/fetchPProduct/{date}/{invoice_no}',[Jointable_Controller::class,'Pu
 Route::get('/fetchPurchaseWeight/{cust_id}/{date1}/{date2}',[Jointable_Controller::class,'TotalWeightOfOrdersByCustomer']);
 
 
-Route::delete('/deleteSalesData/{invoice_no}', [Jointable_Controller::class, 'deleteSalesData']);
 
 
 

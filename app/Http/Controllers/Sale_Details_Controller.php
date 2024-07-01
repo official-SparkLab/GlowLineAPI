@@ -101,6 +101,24 @@ class Sale_Details_Controller extends Controller
         }
     }
 
+    // Delete Sale Details 
+    public function deleteSaleDetails($sales_id)
+    {
+        try {
+            $deletedRows = DB::table('tbl_sales_details')
+                ->where('sales_id', '=', $sales_id)
+                ->delete();
+
+            if ($deletedRows === 0) {
+                return response()->json(["message" => "No data found"], 404);
+            } else {
+                return response()->json(["message" => "Data deleted successfully", "status" => "success"], 200);
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(["error" => "An error occurred"], 500);
+        }
+    }
     // Update Sale Details
 
     public function updateSaleDetails(Request $request, $date, $invoice_no)

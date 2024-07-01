@@ -394,17 +394,18 @@ class Jointable_Controller extends Controller
     }
 
 
-// ........................<Delete All Sale Data>.................................
+// // ........................<Delete All Sale Data>.................................
 
 
-    public function deleteSalesData($invoice_no)
-    {
-        // Delete data from tbl_sales_details
-        DB::table('tbl_sales_details')->where('invoice_no', $invoice_no)->delete();
+// public function deleteSalesData($invoice_no)
+//     {
+//         // Delete data from tbl_sales_details
+//         DB::table('tbl_sales_details')->where('invoice_no', $invoice_no)->delete();
 
-        // Delete data from tbl_sales_product
-        DB::table('tbl_sales_product')->where('invoice_no', $invoice_no)->delete();
+//         // Delete data from tbl_sales_product
+//         DB::table('tbl_sales_product')->where('invoice_no', $invoice_no)->delete();
 
-        return response()->json(['message' => 'Sales data deleted successfully'], 200);
-    }
+//         return response()->json(['message' => 'Sales data deleted successfully'], 200);
+//     }
+
 }
