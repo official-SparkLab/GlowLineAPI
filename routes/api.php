@@ -27,7 +27,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Sales_Product_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DocumentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -380,3 +380,4 @@ Route::get('/userById/{user_id}',[UserController::class,'fetchDataById']);
 Route::post('/userLogin',[UserController::class,'login']);
 
 
+Route::resource('/document', DocumentController::class);
