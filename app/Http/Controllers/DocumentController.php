@@ -92,10 +92,10 @@ class DocumentController extends Controller
         {
             $document = Document::findOrFail($id);
 
-            // Delete the document
+           
             $document->delete();
     
-            // Return success response
+
             return response()->json([
                 'message' => 'Document deleted successfully',
                 'status' => 'Success',
