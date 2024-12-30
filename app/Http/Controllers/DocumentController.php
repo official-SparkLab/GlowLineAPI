@@ -15,7 +15,7 @@ class DocumentController extends Controller
         try
         {
             return response()->json([
-                'message'=>'Document Fetched',
+                'message'=>'E-Invoice Details Fetched',
                 'status'=>'Success',
                 'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn')->get()
 
@@ -45,7 +45,7 @@ class DocumentController extends Controller
         try {
             $doc = Document::create($request->all());
             return response()->json([
-                'message' => 'Document Details Fetched',
+                'message' => 'E-Invoice Details Saved',
                 'status' => 'Success',
                 'Data' => $doc
             ], 201); // 201 Created
@@ -97,7 +97,7 @@ class DocumentController extends Controller
     
 
             return response()->json([
-                'message' => 'Document deleted successfully',
+                'message' => 'E-Invoice deleted successfully',
                 'status' => 'Success',
                 'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn')->get()
             ], 200);

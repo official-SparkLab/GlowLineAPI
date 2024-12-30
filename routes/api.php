@@ -380,4 +380,4 @@ Route::get('/userById/{user_id}',[UserController::class,'fetchDataById']);
 Route::post('/userLogin',[UserController::class,'login']);
 
 
-Route::resource('/document', DocumentController::class);
+Route::resource('/e-invoice', DocumentController::class);
