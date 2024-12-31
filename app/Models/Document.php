@@ -22,11 +22,5 @@ class Document extends Model
         'irn',
     ];
 
-    // Disable timestamps if not used in the table
-    public $timestamps = false;
-
-    // Cast attributes to specific types (optional)
-    protected $casts = [
-        'document_date' => 'date',
-    ];
+    
 }
