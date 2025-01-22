@@ -20,6 +20,7 @@ class Document extends Model
         'document_no',
         'document_date',
         'irn',
+        'eway_no',
     ];
 
     

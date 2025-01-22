@@ -17,7 +17,7 @@ class DocumentController extends Controller
             return response()->json([
                 'message'=>'E-Invoice Details Fetched',
                 'status'=>'Success',
-                'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn')->get()
+                'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn','eway_no')->get()
 
             ]);
         }catch(Exception $e)
@@ -99,7 +99,7 @@ class DocumentController extends Controller
             return response()->json([
                 'message' => 'E-Invoice deleted successfully',
                 'status' => 'Success',
-                'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn')->get()
+                'data' => Document::select('doc_id', 'document_no', 'document_date', 'irn','eway_no')->get()
             ], 200);
         }catch(Exception $e)
         {
